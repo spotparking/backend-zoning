@@ -91,7 +91,7 @@ def extract_last_frame(video_path) -> np.ndarray:
     cap.release()
     return frame
 
-def extract_all_frames(video_path, frame_skip=None) -> list[np.ndarray]:
+def extract_frames(video_path, frame_skip=None) -> np.ndarray:
     """
     Extracts all frames from a video and returns the frames as np.ndarrays
     inside a list.
@@ -118,7 +118,23 @@ def extract_all_frames(video_path, frame_skip=None) -> list[np.ndarray]:
         frames.append(frame)
     # Release the video capture object
     cap.release()
-    return frames
+    return np.array(frames)
+
+# def extract_frames(video_path: str):
+#     cap = cv2.VideoCapture(video_path)
+#     frames = []
+#     if not cap.isOpened():
+#         raise ValueError(f"Could not open video file: {video_path}")
+    
+#     while True:
+#         ret, frame = cap.read()
+#         if not ret:
+#             break
+#         frames.append(frame)
+
+#     cap.release()
+
+#     return np.array(frames)
     
     
     
