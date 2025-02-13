@@ -1,3 +1,5 @@
+import random
+
 
 class Zone:
     
@@ -20,6 +22,6 @@ class Zone:
     
     def predict(self, car_vector):
         # return the car from self.cars with the best match to car_vector
-        pass
+        return random.choice(self.cars)
     
     
