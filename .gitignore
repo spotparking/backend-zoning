@@ -2,3 +2,4 @@ first_zone
 .DS_Store
 
 .env
+test_data
