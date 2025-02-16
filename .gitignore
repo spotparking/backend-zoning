@@ -1,5 +1,5 @@
 first_zone
 .DS_Store
-
+__pycache__
 .env
 test_data

@@ -9,9 +9,11 @@ class Zone:
         pass
     
     def load_cars(self):
+        # getting the current cars from memory when a new car enters or leaves
         pass
     
     def save_cars(self):
+        # saving the current cars to memory
         pass
     
     def add_car(self, car):
