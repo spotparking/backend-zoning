@@ -20,7 +20,6 @@ def get_timestamp_from_filename(filename):
     except ValueError:
         return None
 
-
 def get_vids_between(enter_vid_path, leave_vid_path):
     enter_day_folder = os.path.dirname(enter_vid_path) + "/"
     leave_day_folder = os.path.dirname(leave_vid_path) + "/"

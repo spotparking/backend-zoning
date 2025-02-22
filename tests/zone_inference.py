@@ -1,11 +1,11 @@
 # from modules import Zone #TODO: implement the Zone class so that we can use the zone the right way
-from pathlib import Path
-import numpy as np
 import random
-import cv2
 import os
+import pandas as pd
+import numpy as np
+import ast
 
-from modules.features import average_color_histogram, compare_histograms
+from modules.features import average_color_histogram, compare_histograms, closest_k_points
 
 def test_zone_inference(zone_size:int, path_to_data:str):
     
@@ -23,9 +23,14 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     # create average color histogram for each car's enter and leave
     enter_hists = {}
     leave_hists = {}
+    last_enter_pt = {}
+    first_leave_pt = {}
+    all_cars = pd.read_csv(path_to_data + "all_cars.csv")
     for folder in zone:
         enter_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/enter")
         leave_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/leave")
+        last_enter_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
+        first_leave_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
     
     # for each exit, find the best match from the enters
     correct_matches = 0
@@ -33,15 +38,20 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     for leave_car in leave_hists.keys():
         best_match = None
         best_match_score = 0
+        
+        leave_pt = last_enter_pt[leave_car]
+        # find closest k enter pts
+        closest_k = closest_k_points(leave_pt, first_leave_pt.values(), 1)
+        
         for enter_car in enter_hists.keys():
-            score = compare_histograms(leave_hists[leave_car], enter_hists[enter_car])
-            if score > best_match_score:
-                best_match_score = score
-                best_match = enter_car
+            if last_enter_pt[enter_car] in closest_k:
+                score = compare_histograms(leave_hists[leave_car], enter_hists[enter_car])
+                if score > best_match_score:
+                    best_match_score = score
+                    best_match = enter_car
         if best_match == leave_car:
             correct_matches += 1
         else:
             incorrect_matches += 1
 
-    # correct_matches + incorrect_matches should equal the zone_size
     return correct_matches, incorrect_matches
