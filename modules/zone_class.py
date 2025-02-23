@@ -1,5 +1,5 @@
-from car_class import Car
-from helpers import closest_k_points, compare_histograms
+from modules.car_class import Car
+from modules.helpers import closest_k_points, compare_histograms
 
 class Zone:
     def __init__(self, zone_id:str, cam_label:str, coordinates:list[list[float]], driving_region_coordinates:list[list[float]]):
@@ -9,8 +9,6 @@ class Zone:
         self.driving_region_coordinates = driving_region_coordinates
         
         self.cars = []
-        
-        Zone.zones_registry[zone_id] = self
     
     
     # not sure if these are needed with the current implementation vvv

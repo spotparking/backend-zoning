@@ -1,10 +1,7 @@
 import numpy as np 
 import pandas as pd
-from pathlib import Path
 import cv2
-from car_class import Car
-from zone_class import Zone
-from helpers import take_drive_pics, is_in_zone_vec
+from modules.helpers import take_drive_pics, is_in_zone_vec
 
 def create_features(frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
     
@@ -45,8 +42,7 @@ def average_color_histogram(record, frames, driving_region_coordinates):
     if count == 0:
         return None
     
-    avg_hist = hist_sum / count
-    return avg_hist
+    return hist_sum / count
 
 def get_center_pt(record, driving_region_pix):
     record = record.copy()

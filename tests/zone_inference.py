@@ -4,8 +4,10 @@ import os
 import pandas as pd
 import numpy as np
 import ast
-
-from modules.features import average_color_histogram, compare_histograms, closest_k_points
+from modules.zone_class import Zone
+from modules.car_class import Car
+from tests.testing_helpers import average_color_histogram
+from modules.helpers import compare_histograms, closest_k_points
 
 def test_zone_inference(zone_size:int, path_to_data:str):
     
@@ -15,43 +17,56 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     #       ex: path_to_data/{license_plate}/enter/{image}.jpg                                                                    #
     ###############################################################################################################################
     
-    # zone = Zone() #TODO: implement the Zone class so that we can use the zone the right way
+    CRABTREE_PARKING_REGION_PIX = np.array([
+        [545, 129],
+        [674, 156],
+        [774, 291],
+        [610, 263],
+    ])
+    CRABTREE_DRIVING_REGION_PIX = np.array([
+        [357, 60],
+        [522, 85],
+        [666, 385],
+        [401, 385],
+    ])
+    zone = Zone("zone1", "cam1", CRABTREE_PARKING_REGION_PIX, CRABTREE_DRIVING_REGION_PIX)
     
     data_folders = [f for f in os.listdir(path_to_data) if os.path.isdir(os.path.join(path_to_data, f))]
-    zone = random.sample(data_folders, zone_size)
+    cars_to_add = random.sample(data_folders, zone_size)
     
-    # create average color histogram for each car's enter and leave
-    enter_hists = {}
-    leave_hists = {}
-    last_enter_pt = {}
-    first_leave_pt = {}
     all_cars = pd.read_csv(path_to_data + "all_cars.csv")
-    for folder in zone:
-        enter_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/enter")
-        leave_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/leave")
-        last_enter_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
-        first_leave_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
+    leaving_cars = []
+    matches = {}
+    for folder in cars_to_add:
+        entering_car = Car()
+        entering_car.set_features([average_color_histogram(path_to_data + "/" + folder + "/enter"), tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))])
+        zone.add_car(entering_car)
+        leaving_car = Car()
+        leaving_car.set_features([average_color_histogram(path_to_data + "/" + folder + "/leave"), tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["first_leave_pt"].values[0]))])
+        leaving_cars.append(leaving_car)
+        matches[entering_car] = leaving_car
     
-    # for each exit, find the best match from the enters
     correct_matches = 0
     incorrect_matches = 0
-    for leave_car in leave_hists.keys():
+    for leaving_car in leaving_cars:
         best_match = None
         best_match_score = 0
         
-        leave_pt = last_enter_pt[leave_car]
         # find closest k enter pts
-        closest_k = closest_k_points(leave_pt, first_leave_pt.values(), 1)
+        enter_pts = [car.center_pt for car in zone.cars]
+        closest_k = closest_k_points(leaving_car.center_pt, enter_pts, 2)
         
-        for enter_car in enter_hists.keys():
-            if last_enter_pt[enter_car] in closest_k:
-                score = compare_histograms(leave_hists[leave_car], enter_hists[enter_car])
+        for enter_car in zone.cars:
+            if enter_car.center_pt in closest_k:
+                score = compare_histograms(leaving_car.ave_hist, enter_car.ave_hist)
                 if score > best_match_score:
                     best_match_score = score
                     best_match = enter_car
-        if best_match == leave_car:
-            correct_matches += 1
-        else:
-            incorrect_matches += 1
+
+        if best_match is not None:
+            if matches[best_match] == leaving_car:
+                correct_matches += 1
+            else:
+                incorrect_matches += 1
 
     return correct_matches, incorrect_matches
