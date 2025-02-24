@@ -28,7 +28,7 @@ class Zone:
     def remove_car(self, car):
         self.cars.remove(car)
     
-    def predict(self, leaving_car, k): # could remove k and just standardize for each zone with a specific k val
+    def predict(self, leaving_car:Car, k) -> Car: # could remove k and just standardize for each zone with a specific k val
         best_match = None
         best_match_score = 0
         
