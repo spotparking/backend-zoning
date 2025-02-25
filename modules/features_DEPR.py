@@ -1,6 +1,5 @@
 import numpy as np 
 import pandas as pd
-from pathlib import Path
 import cv2
 from car_class import Car
 from modules.parking_zone_class import ParkingZone
@@ -45,8 +44,7 @@ def average_color_histogram(record, frames, driving_region_coordinates):
     if count == 0:
         return None
     
-    avg_hist = hist_sum / count
-    return avg_hist
+    return hist_sum / count
 
 def get_center_pt(record, driving_region_pix):
     record = record.copy()
