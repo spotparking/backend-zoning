@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import ast
 
-from modules.features import average_color_histogram, compare_histograms, closest_k_points
+from modules.parking_zone_class import ParkingZone
 
 def test_zone_inference(zone_size:int, path_to_data:str):
     
@@ -27,8 +27,8 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     first_leave_pt = {}
     all_cars = pd.read_csv(path_to_data + "all_cars.csv")
     for folder in zone:
-        enter_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/enter")
-        leave_hists[folder] = average_color_histogram(path_to_data + "/" + folder + "/leave")
+        enter_hists[folder] = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/enter")
+        leave_hists[folder] = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/leave")
         last_enter_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
         first_leave_pt[folder] = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
     
@@ -41,11 +41,11 @@ def test_zone_inference(zone_size:int, path_to_data:str):
         
         leave_pt = last_enter_pt[leave_car]
         # find closest k enter pts
-        closest_k = closest_k_points(leave_pt, first_leave_pt.values(), 1)
+        closest_k = ParkingZone.closest_k_points(leave_pt, first_leave_pt.values(), 1)
         
         for enter_car in enter_hists.keys():
             if last_enter_pt[enter_car] in closest_k:
-                score = compare_histograms(leave_hists[leave_car], enter_hists[enter_car])
+                score = ParkingZone.get_vector_similarity(leave_hists[leave_car], enter_hists[enter_car])
                 if score > best_match_score:
                     best_match_score = score
                     best_match = enter_car

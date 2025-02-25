@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 import cv2
 from car_class import Car
-from zone_class import Zone
+from modules.parking_zone_class import ParkingZone
 from helpers import take_drive_pics, is_in_zone_vec
 
 def create_features(frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
