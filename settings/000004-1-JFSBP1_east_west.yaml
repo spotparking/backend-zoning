@@ -1,0 +1,77 @@
+cam_type: overhead-lpr
+camera_label: 000004-1-JFSBP1_east_west
+lot: '1'
+organizationID: '000004'
+picture_path: settings/pictures/000004-1-JFSBP1_east_west.png
+resolution:
+  height: 1080
+  width: 1920
+rtsp_link: rtsp://study:w@tchTh3carzcra5h!@10.11.60.80:654/00000001-0000-babe-0000-accc8e8dbaa5/live?redirected=True
+passoff_regions:
+  JFSBP1_east_west-region_4:
+    direction: LEFT
+    points:
+      - [0.57969, 0.05000]
+      - [0.64531, 0.05185]
+      - [0.64687, 0.24907]
+      - [0.54010, 0.24722]
+      - [0.54115, 0.12778]
+    connect_from:
+      - cam_label: 000004-1-JFSBP2_east_west
+        region_name: JFSBP2_east_west-region_2
+        type: ss
+  JFSBP1_east_west-region_5:
+    direction: UP
+    points:
+      - [0.34583, 0.05185]
+      - [0.34583, 0.12315]
+      - [0.57917, 0.12500]
+      - [0.57969, 0.04630]
+    connect_to:
+      - cam_label: 000004-1-JFSBP1_center_east
+        region_name: JFSBP1_center_east-region_4
+        type: ss
+zones:
+  JFSBP1_east_west-region_0:
+    zone_name: south_east
+    direction: LEFT
+    points:
+      - [0.49219, 0.00000]
+      - [0.49219, 0.02870]
+      - [0.43542, 0.06481]
+      - [0.35052, 0.11667]
+      - [0.19427, 0.24352]
+      - [0.00000, 0.41574]
+      - [0.00000, 0.00000]
+  JFSBP1_east_west-region_1:
+    zone_name: north_east
+    direction: RIGHT
+    points:
+      - [0.52969, 0.00000]
+      - [0.52969, 0.02963]
+      - [0.54583, 0.07037]
+      - [0.58437, 0.16574]
+      - [0.68594, 0.42685]
+      - [0.78646, 0.43056]
+      - [0.93229, 0.62685]
+      - [1.00000, 0.64352]
+      - [1.00000, 0.00000]
+  JFSBP1_east_west-region_3:
+    zone_name: corner_north_east_2_spots
+    direction: DOWN,RIGHT
+    points:
+      - [0.44479, 0.56574]
+      - [0.75313, 0.37407]
+      - [1.00000, 0.37870]
+      - [1.00000, 1.00000]
+      - [0.44427, 1.00000]
+  JFSBP1_east_west-region_6:
+    zone_name: corner_south_east_3_spots
+    direction: DOWN,LEFT
+    points:
+      - [0.43906, 0.56667]
+      - [0.44010, 1.00000]
+      - [0.00000, 1.00000]
+      - [0.00000, 0.38981]
+      - [0.20729, 0.39074]
+

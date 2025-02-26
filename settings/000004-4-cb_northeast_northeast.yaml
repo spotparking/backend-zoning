@@ -1,0 +1,904 @@
+camera_label: 000004-4-cb_northeast_northeast
+cam_type: overhead
+crops:
+  crop1:
+    br_x: 0.47839
+    br_y: 0.33888
+    tl_x: 0.18385
+    tl_y: 0.12408
+  crop2:
+    br_x: 0.63229
+    br_y: 0.42084
+    tl_x: 0.39531
+    tl_y: 0.16666
+  crop3:
+    br_x: 0.9664
+    br_y: 0.60926
+    tl_x: 0.57266
+    tl_y: 0.2338
+  crop4:
+    br_x: 0.80026
+    br_y: 0.23194
+    tl_x: 0.52187
+    tl_y: 0.06343
+  crop5:
+    br_x: 0.98255
+    br_y: 0.29212
+    tl_x: 0.75677
+    tl_y: 0.1537
+  crop6:
+    br_x: 0.17526
+    br_y: 0.49861
+    tl_x: 0.0
+    tl_y: 0.2338
+  crop7:
+    br_x: 0.78412
+    br_y: 0.9963
+    tl_x: 0.0
+    tl_y: 0.36018
+lot: '4'
+organizationID: '000004'
+quadrants:
+  Q1:
+    avg_car_area: 0.00472
+    avg_car_h: 0.06618
+    avg_car_w: 0.06564
+  Q2:
+    avg_car_area: 0.00463
+    avg_car_h: 0.06905
+    avg_car_w: 0.06486
+  Q3:
+    avg_car_area: 0.0045
+    avg_car_h: 0.07325
+    avg_car_w: 0.05971
+  Q4:
+    avg_car_area: 0.01384
+    avg_car_h: 0.11634
+    avg_car_w: 0.11443
+  Q5:
+    avg_car_area: 0.01374
+    avg_car_h: 0.12222
+    avg_car_w: 0.1048
+  Q6:
+    avg_car_area: 0.00938
+    avg_car_h: 0.11159
+    avg_car_w: 0.08298
+  Q7:
+    avg_car_area: 0.02689
+    avg_car_h: 0.17006
+    avg_car_w: 0.15799
+  Q8:
+    avg_car_area: 0.02778
+    avg_car_h: 0.18073
+    avg_car_w: 0.15135
+  Q9:
+    avg_car_area: 0.03729
+    avg_car_h: 0.23125
+    avg_car_w: 0.16133
+resolution:
+  height: 1080
+  width: 1920
+# rtsp_link: rtsp://study:w@tchTh3carzcra5h!@10.6.113.116/axis-media/media.amp?videocodec=h264&camera=1
+rtsp_link: "rtsp://study:w@tchTh3carzcra5h!@10.11.60.80:654/00000001-0000-babe-0000-b8a44fa07be1/live?redirected=True"
+picture_path: "settings/pictures/000004-4-cb_northeast_northeast.png"
+selection_points:
+  - [0.00000, 0.19444]
+  - [0.19271, 0.11111]
+  - [0.14583, 0.04630]
+  - [0.32344, 0.00000]
+  - [0.37865, 0.05185]
+  - [0.54010, 0.10185]
+  - [0.59948, 0.05926]
+  - [1.00000, 0.17130]
+  - [1.00000, 1.00000]
+  - [0.00000, 1.00000]
+parking_regions: [
+  [
+    [0.03333, 0.22500],
+    [0.80208, 0.73056],
+    [0.63698, 0.99722],
+    [0.38177, 0.99537],
+    [0.00104, 0.54722],
+    [0.00000, 0.22963]
+  ],
+  [
+    [0.15781, 0.20648],
+    [0.30625, 0.10648],
+    [0.97969, 0.39259],
+    [0.87865, 0.60000]
+  ],
+  [
+    [0.50938, 0.12963],
+    [0.96719, 0.31759],
+    [0.99010, 0.21574],
+    [0.56042, 0.06852]
+  ]
+]
+passoff_regions:
+  in_lprctb: # 0
+    points:
+      - [0.19687, 0.10278]
+      - [0.33073, 0.05926]
+      - [0.38333, 0.08426]
+      - [0.24479, 0.13889]
+    direction: "RIGHT"
+  in_northmiddle: # 1
+    points:
+      - [0.81146, 0.54259]
+      - [0.69688, 0.70185]
+      - [0.76875, 0.84444]
+      - [0.92969, 0.55741]
+    connect_to:
+      - cam_label: "000004-4-ctb_southwest_west"
+        region_name: "in_northmiddle"
+        type: ss
+    direction: "LEFT"
+  in_ctbtopright: # 2
+    points:
+      - [0.95521, 0.27500]
+      - [0.99844, 0.28704]
+      - [0.99844, 0.42685]
+      - [0.91823, 0.36574]
+    direction: "LEFT"
+  in_handicapintersection: # 3
+    points:
+      - [0.90573, 0.65000]
+      - [0.99999, 0.71574]
+      - [0.99999, 0.99999]
+      - [0.71719, 0.99999]
+    direction: "UP"
+stalls:
+  004-0001:
+    crops:
+    - crop7
+    point:
+    - 0.55410
+    - 0.95523
+    stall_center:
+    - 0.55410
+    - 0.95523
+    quadrant: Q8
+  004-0002:
+    crops:
+    - crop7
+    point:
+    - 0.45723
+    - 0.90130
+    stall_center:
+    - 0.45723
+    - 0.90130
+    quadrant: Q8
+  004-0003:
+    crops:
+    - crop7
+    point:
+    - 0.38788
+    - 0.81724
+    stall_center:
+    - 0.38788
+    - 0.81724
+    quadrant: Q8
+  004-0004:
+    crops:
+    - crop7
+    point:
+    - 0.31972999999999996
+    - 0.75274
+    stall_center:
+    - 0.31972999999999996
+    - 0.75274
+    quadrant: Q8
+  004-0005:
+    crops:
+    - crop7
+    point:
+    - 0.26749
+    - 0.70257
+    stall_center:
+    - 0.26749
+    - 0.70257
+    quadrant: Q7
+  004-0006:
+    crops:
+    - crop7
+    point:
+    - 0.20826999999999998
+    - 0.65118
+    stall_center:
+    - 0.20826999999999998
+    - 0.65118
+    quadrant: Q4
+  004-0007:
+    crops:
+    - crop7
+    point:
+    - 0.16070
+    - 0.60404
+    stall_center:
+    - 0.16070
+    - 0.60404
+    quadrant: Q4
+  004-0008:
+    crops:
+    - crop7
+    point:
+    - 0.11956
+    - 0.56306
+    stall_center:
+    - 0.11956
+    - 0.56306
+    quadrant: Q4
+  004-0009:
+    crops:
+    - crop7
+    point:
+    - 0.08245
+    - 0.52626
+    stall_center:
+    - 0.08245
+    - 0.52626
+    quadrant: Q4
+  004-0010:
+    crops:
+    - crop7
+    point:
+    - 0.05329
+    - 0.49739
+    stall_center:
+    - 0.05329
+    - 0.49739
+    quadrant: Q4
+  004-0011:
+    crops:
+    - crop6
+    - crop7
+    point:
+    - 0.03199
+    - 0.47084
+    stall_center:
+    - 0.03199
+    - 0.47084
+    quadrant: Q4
+  # 004-0012:
+  #   crops:
+  #   - crop6
+  #   - crop7
+  #   point:
+  #   - 0.03515
+  #   - 0.44074
+  #   stall_center:
+  #   - 0.03515
+  #   - 0.44074
+  #   quadrant: Q4
+  # 004-0013:
+  #   crops:
+  #   - crop6
+  #   - crop7
+  #   point:
+  #   - 0.02227
+  #   - 0.41041
+  #   stall_center:
+  #   - 0.02227
+  #   - 0.41041
+  #   quadrant: Q4
+  004-0018:
+    crops:
+    - crop7
+    point:
+    - 0.68363
+    - 0.79853
+    stall_center:
+    - 0.68363
+    - 0.79853
+    quadrant: Q8
+  004-0019:
+    crops:
+    - crop7
+    point:
+    - 0.60303
+    - 0.73696
+    stall_center:
+    - 0.60303
+    - 0.73696
+    quadrant: Q8
+  004-0020:
+    crops:
+    - crop7
+    point:
+    - 0.52894
+    - 0.68117
+    stall_center:
+    - 0.52894
+    - 0.68117
+    quadrant: Q8
+  004-0021:
+    crops:
+    - crop7
+    point:
+    - 0.46501
+    - 0.62792
+    stall_center:
+    - 0.46501
+    - 0.62792
+    quadrant: Q8
+  004-0022:
+    crops:
+    - crop7
+    point:
+    - 0.40616
+    - 0.57954
+    stall_center:
+    - 0.40616
+    - 0.57954
+    quadrant: Q5
+  004-0023:
+    crops:
+    - crop7
+    point:
+    - 0.34038
+    - 0.54203
+    stall_center:
+    - 0.34038
+    - 0.54203
+    quadrant: Q4
+  004-0024:
+    crops:
+    - crop7
+    point:
+    - 0.29246
+    - 0.50337
+    stall_center:
+    - 0.29246
+    - 0.50337
+    quadrant: Q4
+  004-0025:
+    crops:
+    - crop7
+    point:
+    - 0.24819
+    - 0.46911
+    stall_center:
+    - 0.24819
+    - 0.46911
+    quadrant: Q4
+  004-0026:
+    crops:
+    - crop7
+    point:
+    - 0.20835
+    - 0.43693
+    stall_center:
+    - 0.20835
+    - 0.43693
+    quadrant: Q4
+  004-0027:
+    crops:
+    - crop6
+    - crop7
+    point:
+    - 0.18172
+    - 0.41077
+    stall_center:
+    - 0.18172
+    - 0.41077
+    quadrant: Q4
+  004-0028:
+    crops:
+    - crop6
+    - crop7
+    point:
+    - 0.14995
+    - 0.38438
+    stall_center:
+    - 0.14995
+    - 0.38438
+    quadrant: Q4
+  004-0029:
+    crops:
+    - crop6
+    - crop7
+    point:
+    - 0.12169
+    - 0.361
+    stall_center:
+    - 0.12169
+    - 0.361
+    quadrant: Q4
+  004-0030:
+    crops:
+    - crop6
+    - crop7
+    point:
+    - 0.09612
+    - 0.33893
+    stall_center:
+    - 0.09612
+    - 0.33893
+    quadrant: Q4
+  004-0031:
+    crops:
+    - crop6
+    point:
+    - 0.06509
+    - 0.32026
+    stall_center:
+    - 0.06509
+    - 0.32026
+    quadrant: Q4
+  # 004-0032:
+  #   crops:
+  #   - crop6
+  #   point:
+  #   - 0.03373
+  #   - 0.33981
+  #   stall_center:
+  #   - 0.03373
+  #   - 0.33981
+  #   quadrant: Q4
+  # 004-0033:
+  #   crops:
+  #   - crop6
+  #   point:
+  #   - 0.02344
+  #   - 0.31875
+  #   stall_center:
+  #   - 0.02344
+  #   - 0.31875
+  #   quadrant: Q1
+  # 004-0034:
+  #   crops:
+  #   - crop6
+  #   point:
+  #   - 0.01536
+  #   - 0.29676
+  #   stall_center:
+  #   - 0.01536
+  #   - 0.29676
+  #   quadrant: Q1
+  004-0035:
+    crops:
+    - crop3
+    point:
+    - 0.88047
+    - 0.51606
+    stall_center:
+    - 0.88047
+    - 0.51606
+    quadrant: Q6
+  004-0036:
+    crops:
+    - crop3
+    point:
+    - 0.80401
+    - 0.48249
+    stall_center:
+    - 0.80401
+    - 0.48249
+    quadrant: Q6
+  004-0037:
+    crops:
+    - crop3
+    - crop7
+    point:
+    - 0.74516
+    - 0.4517
+    stall_center:
+    - 0.74516
+    - 0.4517
+    quadrant: Q6
+  004-0038:
+    crops:
+    - crop3
+    - crop7
+    point:
+    - 0.68878
+    - 0.423
+    stall_center:
+    - 0.68878
+    - 0.423
+    quadrant: Q6
+  004-0039:
+    crops:
+    - crop3
+    - crop7
+    point:
+    - 0.63644
+    - 0.3973
+    stall_center:
+    - 0.63644
+    - 0.3973
+    quadrant: Q5
+  004-0040:
+    crops:
+    - crop2
+    - crop3
+    - crop7
+    point:
+    - 0.57483
+    - 0.37031
+    stall_center:
+    - 0.57483
+    - 0.37031
+    quadrant: Q5
+  004-0041:
+    crops:
+    - crop2
+    point:
+    - 0.52743
+    - 0.34739
+    stall_center:
+    - 0.52743
+    - 0.34739
+    quadrant: Q5
+  004-0042:
+    crops:
+    - crop2
+    point:
+    - 0.48055
+    - 0.32902
+    stall_center:
+    - 0.48055
+    - 0.32902
+    quadrant: Q2
+  004-0043:
+    crops:
+    - crop1
+    - crop2
+    point:
+    - 0.43915
+    - 0.31027
+    stall_center:
+    - 0.43915
+    - 0.31027
+    quadrant: Q2
+  004-0044:
+    crops:
+    - crop1
+    - crop2
+    point:
+    - 0.39721
+    - 0.29029
+    stall_center:
+    - 0.39721
+    - 0.29029
+    quadrant: Q2
+  004-0045:
+    crops:
+    - crop1
+    point:
+    - 0.36128
+    - 0.272
+    stall_center:
+    - 0.36128
+    - 0.272
+    quadrant: Q2
+  004-0046:
+    crops:
+    - crop1
+    point:
+    - 0.32755
+    - 0.25626
+    stall_center:
+    - 0.32755
+    - 0.25626
+    quadrant: Q2
+  004-0047:
+    crops:
+    - crop1
+    point:
+    - 0.30152
+    - 0.23537
+    stall_center:
+    - 0.30152
+    - 0.23537
+    quadrant: Q1
+  004-0048:
+    crops:
+    - crop1
+    point:
+    - 0.27222
+    - 0.22287
+    stall_center:
+    - 0.27222
+    - 0.22287
+    quadrant: Q1
+  004-0049:
+    crops:
+    - crop1
+    point:
+    - 0.24527
+    - 0.21176
+    stall_center:
+    - 0.24527
+    - 0.21176
+    quadrant: Q1
+  004-0050:
+    crops:
+    - crop1
+    point:
+    - 0.21988
+    - 0.20111
+    stall_center:
+    - 0.21988
+    - 0.20111
+    quadrant: Q1
+  004-0051:
+    crops:
+    - crop3
+    point:
+    - 0.91581
+    - 0.43958
+    stall_center:
+    - 0.91581
+    - 0.43958
+    quadrant: Q6
+  004-0052:
+    crops:
+    - crop3
+    point:
+    - 0.85799
+    - 0.41041
+    stall_center:
+    - 0.85799
+    - 0.41041
+    quadrant: Q6
+  004-0053:
+    crops:
+    - crop3
+    point:
+    - 0.80227
+    - 0.3838
+    stall_center:
+    - 0.80227
+    - 0.3838
+    quadrant: Q6
+  004-0054:
+    crops:
+    - crop3
+    - crop7
+    point:
+    - 0.7494
+    - 0.35879
+    stall_center:
+    - 0.7494
+    - 0.35879
+    quadrant: Q6
+  004-0055:
+    crops:
+    - crop3
+    - crop7
+    point:
+    - 0.69888
+    - 0.33542
+    stall_center:
+    - 0.69888
+    - 0.33542
+    quadrant: Q6
+  004-0056:
+    crops:
+    - crop3
+    point:
+    - 0.6517
+    - 0.30981
+    stall_center:
+    - 0.6517
+    - 0.30981
+    quadrant: Q5
+  004-0057:
+    crops:
+    - crop2
+    - crop3
+    point:
+    - 0.606
+    - 0.28944
+    stall_center:
+    - 0.606
+    - 0.28944
+    quadrant: Q2
+  004-0058:
+    crops:
+    - crop2
+    point:
+    - 0.5629
+    - 0.27092
+    stall_center:
+    - 0.5629
+    - 0.27092
+    quadrant: Q2
+  004-0059:
+    crops:
+    - crop2
+    point:
+    - 0.52188
+    - 0.25333
+    stall_center:
+    - 0.52188
+    - 0.25333
+    quadrant: Q2
+  004-0060:
+    crops:
+    - crop1
+    - crop2
+    point:
+    - 0.48439
+    - 0.2355
+    stall_center:
+    - 0.48439
+    - 0.2355
+    quadrant: Q2
+  004-0061:
+    crops:
+    - crop1
+    - crop2
+    point:
+    - 0.44936
+    - 0.2186
+    stall_center:
+    - 0.44936
+    - 0.2186
+    quadrant: Q2
+  004-0062:
+    crops:
+    - crop1
+    - crop2
+    point:
+    - 0.42233
+    - 0.19871
+    stall_center:
+    - 0.42233
+    - 0.19871
+    quadrant: Q2
+  004-0063:
+    crops:
+    - crop1
+    point:
+    - 0.38552
+    - 0.19175
+    stall_center:
+    - 0.38552
+    - 0.19175
+    quadrant: Q2
+  004-0064:
+    crops:
+    - crop1
+    point:
+    - 0.34858
+    - 0.17971
+    stall_center:
+    - 0.34858
+    - 0.17971
+    quadrant: Q2
+  004-0065:
+    crops:
+    - crop1
+    point:
+    - 0.32006
+    - 0.1693
+    stall_center:
+    - 0.32006
+    - 0.1693
+    quadrant: Q1
+  004-0066:
+    crops:
+    - crop1
+    point:
+    - 0.28701
+    - 0.1588
+    stall_center:
+    - 0.28701
+    - 0.1588
+    quadrant: Q1
+  004-0067:
+    crops:
+    - crop3
+    - crop5
+    point:
+    - 0.94454
+    - 0.26393
+    stall_center:
+    - 0.94454
+    - 0.26393
+    quadrant: Q3
+  004-0068:
+    crops:
+    - crop3
+    - crop5
+    point:
+    - 0.90248
+    - 0.24403
+    stall_center:
+    - 0.90248
+    - 0.24403
+    quadrant: Q3
+  004-0069:
+    crops:
+    - crop3
+    - crop5
+    point:
+    - 0.86094
+    - 0.22597
+    stall_center:
+    - 0.86094
+    - 0.22597
+    quadrant: Q3
+  004-0070:
+    crops:
+    - crop5
+    point:
+    - 0.81993
+    - 0.20931
+    stall_center:
+    - 0.81993
+    - 0.20931
+    quadrant: Q3
+  004-0071:
+    crops:
+    - crop4
+    - crop5
+    point:
+    - 0.7806
+    - 0.19333
+    stall_center:
+    - 0.7806
+    - 0.19333
+    quadrant: Q3
+  004-0072:
+    crops:
+    - crop4
+    point:
+    - 0.72771
+    - 0.18375
+    stall_center:
+    - 0.72771
+    - 0.18375
+    quadrant: Q3
+  004-0073:
+    crops:
+    - crop4
+    point:
+    - 0.69834
+    - 0.16632
+    stall_center:
+    - 0.69834
+    - 0.16632
+    quadrant: Q3
+  004-0074:
+    crops:
+    - crop4
+    point:
+    - 0.66228
+    - 0.15475
+    stall_center:
+    - 0.66228
+    - 0.15475
+    quadrant: Q2
+  004-0075:
+    crops:
+    - crop4
+    point:
+    - 0.62882
+    - 0.14318
+    stall_center:
+    - 0.62882
+    - 0.14318
+    quadrant: Q2
+  004-0076:
+    crops:
+    - crop4
+    point:
+    - 0.59678
+    - 0.13207
+    stall_center:
+    - 0.59678
+    - 0.13207
+    quadrant: Q2
+  004-0077:
+    crops:
+    - crop4
+    point:
+    - 0.56709
+    - 0.12188
+    stall_center:
+    - 0.56709
+    - 0.12188
+    quadrant: Q2

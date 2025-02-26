@@ -1,0 +1,70 @@
+cam_type: overhead-lpr
+camera_label: 000004-1-JFSBP2_west_east
+lot: '1'
+organizationID: '000004'
+picture_path: settings/pictures/000004-1-JFSBP2_west_east.png
+resolution:
+  height: 1080
+  width: 1920
+rtsp_link: rtsp://study:w@tchTh3carzcra5h!@10.11.60.80:654/00000001-0000-babe-0000-accc8e8de0f2/live?redirected=True
+passoff_regions:
+  JFSBP2_west_east-region_1:
+    direction: RIGHT
+    points:
+      - [0.13073, 0.18704]
+      - [0.14635, 0.40093]
+      - [0.27344, 0.44259]
+      - [0.38646, 0.19630]
+      - [0.26042, 0.15556]
+    connect_from:
+      - cam_label: 000004-1-JFSBP1_west_east
+        region_name: JFSBP1_west_east-region_3
+        type: sm
+  JFSBP2_west_east-region_2:
+    direction: LEFT
+    points:
+      - [0.39844, 0.05185]
+      - [0.44583, 0.05185]
+      - [0.44896, 0.13889]
+      - [0.39896, 0.14259]
+    connect_to:
+      - cam_label: 000004-1-JFSBP3_west_east
+        region_name: JFSBP3_west_east-region_0
+        type: ms
+  JFSBP2_west_east-region_4:
+    direction: UP
+    points:
+      - [0.43438, 0.04815]
+      - [0.43594, 0.11944]
+      - [0.60729, 0.11944]
+      - [0.60521, 0.04259]
+    connect_to:
+      - cam_label: 000004-1-JFSBP2_center_west
+        region_name: JFSBP2_center_west-region_3
+        type: ss
+zones:
+  JFSBP2_west_east-region_0:
+    zone_name: north_west
+    direction: LEFT
+    points:
+      - [0.00000, 0.74074]
+      - [0.14010, 0.56481]
+      - [0.33333, 0.25093]
+      - [0.39167, 0.16019]
+      - [0.42500, 0.12130]
+      - [0.48854, 0.03889]
+      - [0.48854, 0.00000]
+      - [0.00000, 0.00000]
+  JFSBP2_west_east-region_3:
+    zone_name: south_west
+    direction: RIGHT
+    points:
+      - [0.52760, 0.00000]
+      - [0.52917, 0.04352]
+      - [0.57031, 0.07870]
+      - [0.60625, 0.11389]
+      - [0.71927, 0.22407]
+      - [0.93906, 0.51759]
+      - [1.00000, 0.64815]
+      - [1.00000, 0.00000]
+

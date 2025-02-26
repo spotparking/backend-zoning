@@ -38,6 +38,11 @@ def get_images_from_folder(folder_path):
         for image_path in folder_path.glob("*.jpg")]
     return images
 
+def points_float_to_pix(points:list[list[float]], height:int, width:int) -> list[list[int]]:
+    """ takes in a list of points like [[0.1, 0.2], [0.3, 0.4]] and the height and width
+    of the image, and returns a list of points like [[100, 200], [300, 400]] """
+    return [[int(point[0] * width), int(point[1] * height)] for point in points]
+
 
 ######################
 # PREDICTION HELPERS #

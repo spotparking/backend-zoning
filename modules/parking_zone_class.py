@@ -4,7 +4,8 @@ import pandas as pd
 import cv2
 
 from car_class import Car
-from modules.helpers import is_in_zone_vec
+from modules.helpers import is_in_zone_vec, points_float_to_pix
+import modules.data_manager as dm
 
 class ParkingZone:
     def __init__(self, zone_id:str, cam_label:str, coordinates:list[list[float]], driving_region_coordinates:list[list[float]]):
@@ -102,6 +103,7 @@ class ParkingZone:
         if 'in_driving_region' not in record.columns:
             record['in_driving_region'] = is_in_zone_vec(record[['cx', 'cy']].values.astype(int), self.driving_region_pix)
         
+        # map each iteration to the bounding boxes of the cars in that iteration
         frame_tracks = {}
         record['br_x'] = record['tl_x'] + record['w']
         record['br_y'] = record['tl_y'] + record['h']
@@ -157,3 +159,30 @@ class ParkingZone:
                     best_match = enter_car
             
         return best_match
+    
+    
+    
+    
+    
+############################################################
+#               PARKINGZONE CREATION FUNCTION              #
+############################################################
+    
+    
+    
+
+
+def get_parking_zone_from_zoneID(zoneID:str) -> ParkingZone:
+    # load the zone_settings based on the zoneID
+    cam_label, region_id, zone_name = dm.parse_zoneID(zoneID)
+    settings = dm.get_settings(cam_label)
+    zone_settings = dm.get_zone_settings(zoneID, settings=settings)
+    
+    # load the coordinates as pixels instead of floats
+    resolution = dm.get_camera_resolution(cam_label, settings=settings)
+    height = resolution['height']
+    width = resolution['width']
+    coordinates = points_float_to_pix(zone_settings['points'], height, width)
+    
+    # create and return the ParkingZone object
+    return ParkingZone(zoneID, cam_label, coordinates, [])
