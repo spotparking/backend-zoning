@@ -14,8 +14,6 @@ class ParkingZone:
         self.driving_region_coordinates:list[list[float]] = driving_region_coordinates
         
         self.cars:list[Car] = []
-        
-        ParkingZone.zones_registry[zone_id] = self
     
     ############################################################
     #                      OBJECT METHODS                      #
