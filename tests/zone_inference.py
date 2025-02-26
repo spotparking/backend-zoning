@@ -37,12 +37,21 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     leaving_cars:list[Car] = []
     matches = {}
     for folder in cars_to_add:
+        
         entering_car = Car()
-        entering_car.set_features([ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/enter"), tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))])
+        ave_hist = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/enter")
+        cx, cy = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
+        enter_feature = np.concatenate((ave_hist, np.array([cx, cy])))
+        entering_car.set_feature(enter_feature)
         zone.add_car(entering_car)
+        
         leaving_car = Car()
-        leaving_car.set_features([ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/leave"), tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["first_leave_pt"].values[0]))])
+        ave_hist = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/leave")
+        cx, cy = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["first_leave_pt"].values[0]))
+        leave_feature = np.concatenate((ave_hist, np.array([cx, cy])))
+        leaving_car.set_feature(leave_feature)
         leaving_cars.append(leaving_car)
+        
         matches[entering_car] = leaving_car
     
     correct_matches = 0

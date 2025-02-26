@@ -112,7 +112,7 @@ class ParkingZone:
                 last_center_pt = row[["cx", "cy"]]
         return last_center_pt
     
-    def create_features(frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
+    def create_feature(frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
         
         ave_hist = ParkingZone.average_color_histogram(record, frames, zone_driving_region_coordinates)
         center_pt = ParkingZone.get_center_pt(record, zone_driving_region_coordinates)
@@ -121,7 +121,7 @@ class ParkingZone:
             # average width height at each driving picture
             # saved cropped images for classifier that takes 2 images and says if they have the same car in them
         
-        return np.array([ave_hist, center_pt])
+        return np.concatenate([ave_hist, center_pt])
     
     ############################################################
     #                        PREDICTION                        #
