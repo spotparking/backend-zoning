@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -29,6 +30,13 @@ def take_drive_pics(record, frames, driving_region_pix):
                                 int(row["tl_x"]):(int(row["tl_x"]) + int(row["w"]))]
                 cropped_images.append(cropped)
     return cropped_images
+
+def get_images_from_folder(folder_path):
+    folder_path = Path(folder_path)
+    images = [
+        cv2.imread(str(image_path)) 
+        for image_path in folder_path.glob("*.jpg")]
+    return images
 
 
 ######################
