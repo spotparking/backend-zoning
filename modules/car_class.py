@@ -23,6 +23,9 @@ class Car:
             raise ValueError("feature must be a 1D array")
         self.feature = feature
         
+    def get_ave_hist(self):
+        return self.feature[:-2]
+        
     def get_center_pt(self):
         return tuple(self.feature[-2:])
         

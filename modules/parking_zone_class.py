@@ -56,28 +56,13 @@ class ParkingZone:
         hist1 = hist1.astype(np.float32)
         hist2 = hist2.astype(np.float32)
         return cv2.compareHist(hist1, hist2, cv2.HISTCMP_CORREL)
-    
-    def take_drive_pics(record:pd.DataFrame, frames:list[np.ndarray], driving_region_pix:list[list[float]]) -> list[np.ndarray]:
-        record = record.copy()
-        record['in_driving_region'] = is_in_zone_vec(record[['cx', 'cy']].values.astype(int), driving_region_pix)
-        
-        cropped_images = []
-        for i, row in record.iterrows():
-            if row['in_driving_region']:
-                frame = frames[row['iteration']]
-                if not np.isnan(row["tl_y"]) and not np.isnan(row["tl_x"]) and not np.isnan(row["h"]) and not np.isnan(row["w"]):
-                    cropped = frame[int(row["tl_y"]):(int(row["tl_y"]) + int(row["h"])),
-                                    int(row["tl_x"]):(int(row["tl_x"]) + int(row["w"]))]
-                    cropped_images.append(cropped)
-        return cropped_images
 
-    def average_color_histogram(record, frames, driving_region_coordinates):
-        cropped_images = ParkingZone.take_drive_pics(record, frames, driving_region_coordinates)
+    def average_color_histogram(frames):
         
         hist_sum = None
         count = 0
 
-        for image in cropped_images:
+        for image in frames:
             # Convert image to HSV for better color representation
             hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
             
@@ -112,9 +97,40 @@ class ParkingZone:
                 last_center_pt = row[["cx", "cy"]]
         return last_center_pt
     
-    def create_feature(frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
+    def get_drive_pics(self, frames:list[np.ndarray], record:pd.DataFrame, frame_skip=1, track_id_col='track_id'):
+        # TODO: TEST THIS
         
-        ave_hist = ParkingZone.average_color_histogram(record, frames, zone_driving_region_coordinates)
+        record = record.copy()
+        if 'in_driving_region' not in record.columns:
+            record['in_driving_region'] = is_in_zone_vec(record[['cx', 'cy']].values.astype(int), self.driving_region_pix)
+        
+        frame_tracks = {}
+        record['br_x'] = record['tl_x'] + record['w']
+        record['br_y'] = record['tl_y'] + record['h']
+        for iteration, frame in record.groupby('iteration'):
+            frame = frame.loc[frame['confirmed'], :]
+            bbox_df = frame[[track_id_col, 'confidence', 'tl_x', 'tl_y', 'br_x', 'br_y']]
+            bbox_arr = bbox_df.to_numpy().astype(float)
+            frame_tracks[int(iteration)-1] = bbox_arr
+            
+        drive_pics = []
+        for i, frame in enumerate(frames):
+            if i % frame_skip != 0:
+                continue
+            bbox = frame_tracks.get(i, None)
+            if bbox is not None:
+                _, _, tl_x, tl_y, br_x, br_y = bbox
+                crop = frame[int(tl_y):int(br_y), int(tl_x):int(br_x)]
+                drive_pics.append(crop)
+            
+        return drive_pics
+    
+    def create_feature(self, frames:list[np.ndarray], record:pd.DataFrame, zone_driving_region_coordinates:list[list[float]], license_plate:str) -> np.ndarray:
+        # TODO: TEST THIS
+        
+        drive_pics = self.get_drive_pics(frames, record)
+        
+        ave_hist = ParkingZone.average_color_histogram(drive_pics)
         center_pt = ParkingZone.get_center_pt(record, zone_driving_region_coordinates)
         
         # Other future features (to be saved in the car class):
@@ -133,11 +149,11 @@ class ParkingZone:
         
         if len(self.cars) < k:
             k = len(self.cars)
-        closest_k = ParkingZone.closest_k_points(leaving_car.center_pt, [car.center_pt for car in self.cars], k=k)
+        closest_k = ParkingZone.closest_k_points(leaving_car.get_center_pt(), [car.get_center_pt() for car in self.cars], k=k)
         
         for enter_car in self.cars:
-            if enter_car.center_pt in closest_k:
-                score = ParkingZone.get_vector_similarity(leaving_car.ave_hist, enter_car.ave_hist)
+            if enter_car.get_center_pt() in closest_k:
+                score = ParkingZone.get_vector_similarity(leaving_car.get_ave_hist(), enter_car.get_ave_hist())
             if score > best_match_score:
                     best_match_score = score
                     best_match = enter_car

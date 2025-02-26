@@ -7,6 +7,7 @@ import ast
 
 from modules.car_class import Car
 from modules.parking_zone_class import ParkingZone
+from modules.helpers import get_images_from_folder
 
 def test_zone_inference(zone_size:int, path_to_data:str):
     
@@ -39,18 +40,22 @@ def test_zone_inference(zone_size:int, path_to_data:str):
     for folder in cars_to_add:
         
         entering_car = Car()
-        ave_hist = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/enter")
+        enter_frames = get_images_from_folder(path_to_data + "/" + folder + "/enter")
+        ave_hist = ParkingZone.average_color_histogram(enter_frames)
         cx, cy = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["last_enter_pt"].values[0]))
         enter_feature = np.concatenate((ave_hist, np.array([cx, cy])))
         entering_car.set_feature(enter_feature)
         zone.add_car(entering_car)
         
         leaving_car = Car()
-        ave_hist = ParkingZone.average_color_histogram(path_to_data + "/" + folder + "/leave")
+        leave_frames = get_images_from_folder(path_to_data + "/" + folder + "/leave")
+        ave_hist = ParkingZone.average_color_histogram(leave_frames)
         cx, cy = tuple(int(x) for x in ast.literal_eval(all_cars[all_cars["license_plate"] == folder]["first_leave_pt"].values[0]))
         leave_feature = np.concatenate((ave_hist, np.array([cx, cy])))
         leaving_car.set_feature(leave_feature)
         leaving_cars.append(leaving_car)
+        
+        # TODO: Change this to use the ParkingZone.add_car function
         
         matches[entering_car] = leaving_car
     
@@ -60,13 +65,15 @@ def test_zone_inference(zone_size:int, path_to_data:str):
         best_match = None
         best_match_score = 0
         
+        # TODO: Change this to use the ParkingZone.add_car and ParkingZone.get_match functions
+        
         # find closest k enter pts
-        enter_pts = [car.center_pt for car in zone.cars]
-        closest_k = ParkingZone.closest_k_points(leaving_car.center_pt, enter_pts, 2)
+        enter_pts = [car.get_center_pt() for car in zone.cars]
+        closest_k = ParkingZone.closest_k_points(leaving_car.get_center_pt(), enter_pts, 2)
         
         for enter_car in zone.cars:
-            if enter_car.center_pt in closest_k:
-                score = ParkingZone.get_vector_similarity(leaving_car.ave_hist, enter_car.ave_hist)
+            if enter_car.get_center_pt() in closest_k:
+                score = ParkingZone.get_vector_similarity(leaving_car.get_ave_hist(), enter_car.get_ave_hist())
                 if score > best_match_score:
                     best_match_score = score
                     best_match = enter_car
