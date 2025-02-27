@@ -1,0 +1,92 @@
+[
+    {
+        "enter": "2025-02-14-18-43-14_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-14-23-55-13_000004-1-JFSBP1_center_west",
+        "description": "silver car"
+    },
+    {
+        "enter": null,
+        "leave": "2025-02-15-09-56-27_000004-1-JFSBP1_center_west",
+        "description": "old teal car"
+    },
+    {
+        "enter": "2025-02-15-11-04-14_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "round black car close no one there"
+    },
+    {
+        "enter": "2025-02-15-12-23-42_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-15-15-19-11_000004-1-JFSBP1_center_west",
+        "description": "round black car some people there"
+    },
+    {
+        "enter": "2025-02-15-14-27-43_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-15-20-07-27_000004-1-JFSBP1_center_west",
+        "description": "silverish suv in front of round black car some people there"
+    },
+    {
+        "enter": "2025-02-15-19-55-56_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "far away toyota rav greyish blue"
+    },
+    {
+        "enter": null,
+        "leave": "2025-02-16-12-54-13_000004-1-JFSBP1_center_west",
+        "description": "medium distance toyota rav greyish blue"
+    },
+    {
+        "enter": "2025-02-16-07-58-00_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "back in silver toyota rav"
+    },
+    {
+        "enter": "2025-02-16-08-54-43_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "back in small black car"
+    },
+    {
+        "enter": "2025-02-16-09-05-29_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-11-01-30_000004-1-JFSBP1_center_west",
+        "description": "pullin closer black car"
+    },
+    {
+        "enter": "2025-02-16-10-19-29_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "silver mini-suv right next to fence pullin"
+    },
+    {
+        "enter": "2025-02-16-10-42-30_000004-1-JFSBP1_center_west",
+        "leave": null,
+        "description": "small black far away pull in"
+    },
+    {
+        "enter": null,
+        "leave": "2025-02-16-11-50-13_000004-1-JFSBP1_center_west",
+        "description": "silver tesla medium distance"
+    },
+    {
+        "enter": "2025-02-16-11-52-44_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-14-17-14_000004-1-JFSBP1_center_west",
+        "description": "small black pullin"
+    },
+    {
+        "enter": "2025-02-16-12-02-27_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-14-28-13_000004-1-JFSBP1_center_west",
+        "description": "teal crv in front of small black pullin"
+    },
+    {
+        "enter": "2025-02-16-12-06-13_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-13-09-58_000004-1-JFSBP1_center_west",
+        "description": "black mini-suv behind small black pulling"
+    },
+    {
+        "enter": null,
+        "leave": "2025-02-16-12-47-13_000004-1-JFSBP1_center_west",
+        "description": "crv leaves spot right next to blck gate"
+    },
+    {
+        "enter": "2025-02-17-08-20-44_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-17-08-28-13_000004-1-JFSBP1_center_west",
+        "description": "old grey car in front of phone"
+    }
+]

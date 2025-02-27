@@ -1,0 +1,1 @@
+This directory contains a bunch of .png with the region/zones drawn on them. There are also jsons that contain information about the float/pixel location of each of the vertices of the zone.
