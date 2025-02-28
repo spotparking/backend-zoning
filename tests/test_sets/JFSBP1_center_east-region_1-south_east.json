@@ -15,16 +15,6 @@
         "description": "round black car close no one there"
     },
     {
-        "enter": "2025-02-15-12-23-42_000004-1-JFSBP1_center_west",
-        "leave": "2025-02-15-15-19-11_000004-1-JFSBP1_center_west",
-        "description": "round black car some people there"
-    },
-    {
-        "enter": "2025-02-15-14-27-43_000004-1-JFSBP1_center_west",
-        "leave": "2025-02-15-20-07-27_000004-1-JFSBP1_center_west",
-        "description": "silverish suv in front of round black car some people there"
-    },
-    {
         "enter": "2025-02-15-19-55-56_000004-1-JFSBP1_center_west",
         "leave": null,
         "description": "far away toyota rav greyish blue"
@@ -45,11 +35,6 @@
         "description": "back in small black car"
     },
     {
-        "enter": "2025-02-16-09-05-29_000004-1-JFSBP1_center_west",
-        "leave": "2025-02-16-11-01-30_000004-1-JFSBP1_center_west",
-        "description": "pullin closer black car"
-    },
-    {
         "enter": "2025-02-16-10-19-29_000004-1-JFSBP1_center_west",
         "leave": null,
         "description": "silver mini-suv right next to fence pullin"
@@ -63,11 +48,6 @@
         "enter": null,
         "leave": "2025-02-16-11-50-13_000004-1-JFSBP1_center_west",
         "description": "silver tesla medium distance"
-    },
-    {
-        "enter": "2025-02-16-11-52-44_000004-1-JFSBP1_center_west",
-        "leave": "2025-02-16-14-17-14_000004-1-JFSBP1_center_west",
-        "description": "small black pullin"
     },
     {
         "enter": "2025-02-16-12-02-27_000004-1-JFSBP1_center_west",
@@ -88,5 +68,25 @@
         "enter": "2025-02-17-08-20-44_000004-1-JFSBP1_center_west",
         "leave": "2025-02-17-08-28-13_000004-1-JFSBP1_center_west",
         "description": "old grey car in front of phone"
+    },
+    {
+        "enter": "2025-02-15-14-27-43_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-15-20-07-27_000004-1-JFSBP1_center_west",
+        "description": "silverish suv in front of round black car some people there"
+    },
+    {
+        "enter": "2025-02-16-11-52-44_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-14-17-14_000004-1-JFSBP1_center_west",
+        "description": "small black pullin"
+    },
+    {
+        "enter": "2025-02-15-12-23-42_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-15-15-19-11_000004-1-JFSBP1_center_west",
+        "description": "round black car some people there"
+    },
+    {
+        "enter": "2025-02-16-09-05-29_000004-1-JFSBP1_center_west",
+        "leave": "2025-02-16-11-01-30_000004-1-JFSBP1_center_west",
+        "description": "pullin closer black car"
     }
 ]

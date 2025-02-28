@@ -1,6 +1,9 @@
 import os
 from typing import Tuple, Dict
 
+import cv2
+import numpy as np
+import pandas as pd
 import dotenv
 import yaml
 
@@ -117,4 +120,94 @@ def get_camera_resolution(cam_label:str, settings:dict=None) -> Dict[str, int]:
     if settings is None:
         settings = get_settings(cam_label)
     return settings['resolution']
+
+############################################################
+#                 FRAMES AND RECORD LOADING                #
+############################################################
+
+def extract_frames(video_path, frame_skip=None) -> list[np.ndarray]:
+    """
+    Extracts all frames from a video and returns the frames as np.ndarrays
+    inside a list.
+
+    Parameters:
+        video_path (str): Path to the input video file.
+        
+    frame_skip==None (default) -> every frame
+    frame_skip==1 -> every frame
+    frame_skip==2 -> every other frame
+    frame_skip==3 -> every third frame
+    ...
+    """
+    if frame_skip is None:
+        frame_skip = 1
+    # Open the video file
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print(f"Error: Unable to open video file {video_path}")
+        return []
+    # Read all frames
+    counter = 0
+    frames = []
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        if (counter:=counter+1) % frame_skip == 0:
+            frames.append(frame)
+    # Release the video capture object
+    cap.release()
+    return frames
+
+def _load_frames_and_record_handle_edgecases(video_name:str, record:pd.DataFrame) -> pd.DataFrame:
+    if video_name == "2025-02-16-09-05-29_000004-1-JFSBP1_center_west":
+        record = record[record['track_id'] == 2]
+    # elif video_name == "2025-02-15-15-19-11_000004-1-JFSBP1_center_west":
+    #     record.loc[record.index.values[0], ['br_x', 'cx', 'cx_ma', 'w']] = record.loc[record.index.values[0], ['tl_x', 'br_x', 'cx', 'cx_ma']] + 100
+    #     record.loc[record.index.values[1], ['br_x', 'cx', 'cx_ma', 'w']] = record.loc[record.index.values[1], ['tl_x', 'br_x', 'cx', 'cx_ma']] + 50
+    # elif video_name == "2025-02-15-14-27-43_000004-1-JFSBP1_center_west":
+    #     record.loc[record.index.values[-1], ['br_x', 'cx', 'cx_ma', 'w']] = record.loc[record.index.values[0], ['tl_x', 'br_x', 'cx', 'cx_ma']] + 200
+    #     record.loc[record.index.values[-2], ['br_x', 'cx', 'cx_ma', 'w']] = record.loc[record.index.values[1], ['tl_x', 'br_x', 'cx', 'cx_ma']] + 100
+    return record
+
+def load_frames_and_record(video_name:str) -> Tuple[list[np.ndarray], pd.DataFrame]:
+    """ loads the frames and record for a video_name like 
+    '2025-02-14-18-43-14_000004-1-JFSBP1_center_west' 
+    """
+    tracking_csv_path = get_jfsb_tracking_csv_path(video_name)
+    motion_csv_path = get_jfsb_motion_csv_path(video_name)
+    video_path = get_jfsb_video_path(video_name)
+    
+    # load the frames from the video
+    if os.path.exists(video_path):
+        frames = extract_frames(video_path)
+        
+        # load the motion_csv or tracking_csv (priority to the motion_csv)
+        if os.path.exists(motion_csv_path):
+            record = pd.read_csv(motion_csv_path)
+        elif os.path.exists(tracking_csv_path):
+            record = pd.read_csv(tracking_csv_path)
+        else:
+            raise ValueError(
+                f"load_frames_and_record('{video_name}') -> "
+                f"neither motion_csv_path='{motion_csv_path}' nor "
+                f"tracking_csv_path='{tracking_csv_path}' exist"
+            )
+    else:
+        raise ValueError(
+            f"load_frames_and_record('{video_name}') -> "
+            f"video_path='{video_path}' does not exist"
+        )
+        
+    # handle edge cases...
+    record = _load_frames_and_record_handle_edgecases(video_name, record)
+    if record is None:
+        return [], pd.DataFrame()
+        
+    # only keep the tracks that drove into a parking region
+    # sadly the data doesn't specify which one...
+    # record = record[record['any_in_parking_region']==True]
+    return frames, record
+        
+    
     

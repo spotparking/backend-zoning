@@ -3,3 +3,8 @@ first_zone
 __pycache__
 .env
 test_data
+
+backend-zoning.code-workspace
+
+tests/results/*
+!tests/results/.gitkeep
