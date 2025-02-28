@@ -143,12 +143,12 @@ class ParkingZone:
             else:
                 index = None
                 # print("WARNING: Using first in_driving_point point as leave point")
-                # switches_mask = ~curr_in_driving_region
-                # if any(switches_mask):
-                #     index = record.index[switches_mask].values[0]
-                # else:
-                #     print("WARNING: Using first point as leave point")
-                #     index = record.index.values[0]
+                switches_mask = ~curr_in_driving_region
+                if any(switches_mask):
+                    index = record.index[switches_mask].values[0]
+                else:
+                    # print("WARNING: Using first point as leave point")
+                    index = record.index.values[0]
         # if we are trying to find the enter point, then we want the last time that
         # the car went from not in_driving_region -> in_driving_region
         elif action.lower() == 'enter':
@@ -159,16 +159,17 @@ class ParkingZone:
             else:
                 index = None
                 # print("WARNING: Using last in_driving_region point as enter point")
-                # switches_mask = curr_in_driving_region
-                # if any(switches_mask):
-                #     print("WARNING: Using last point as enter point")
-                #     index = record.index[switches_mask].values[-1]
-                # else:
-                #     index = record.index.values[-1]
+                switches_mask = curr_in_driving_region
+                if any(switches_mask):
+                    # print("WARNING: Using last point as enter point")
+                    index = record.index[switches_mask].values[-1]
+                else:
+                    index = record.index.values[-1]
         # if the user didn't specify action correctly then raise an error
         else:
             raise ValueError(f"action='{action}' not in ['enter', 'leave']")
         
+        # if it could not find the center point, just return (0,0)
         if index is None:
             return (0, 0)
             # raise ValueError(f"Could not find {action} point")
