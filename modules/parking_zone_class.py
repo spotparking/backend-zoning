@@ -6,6 +6,11 @@ import numpy as np
 import pandas as pd
 import cv2
 
+# NOTE: MAKE SURE THIS IS THE ONLY NATIVE IMPORT
+#       This is to make sure that the ParkingZone class can be copied and pasted into the
+#       SPOT BigBrother codebase without any dependency issues. 
+#       Ex: don't add any "from modules.helpers import __" or "from config import __" here
+#       Third-party and base-python imports are fine
 from modules.spot_classes.car_class import Car
 
 class ParkingZone:
@@ -28,7 +33,6 @@ class ParkingZone:
         # getting the current cars from memory when a new car enters or leaves
         pass
     
-    
     def save_cars(self):
         # saving the current cars to memory
         pass
@@ -39,7 +43,6 @@ class ParkingZone:
         if not isinstance(car, Car):
             raise TypeError(f"car must be a Car object, got {type(car)}")
         self.cars.append(car)
-    
     
     def remove_car(self, car):
         self.cars.remove(car)
@@ -70,8 +73,6 @@ class ParkingZone:
             is_in_zone(x, y, zone)
             for x, y in centers
         ]).astype(bool)
-    
-    
     
     def closest_k_points(leave, enter_points, k):
         """
@@ -237,7 +238,7 @@ class ParkingZone:
         )
     
     
-    def create_feature(self, frames:list[np.ndarray], record:pd.DataFrame, action) -> np.ndarray:
+    def create_feature(self, frames:list[np.ndarray], record:pd.DataFrame, action:str) -> np.ndarray:
         
         if action.lower() != 'enter' and action.lower() != 'leave':
             raise ValueError(f"action='{action}' not in ['enter', 'leave']")
