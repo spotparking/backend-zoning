@@ -32,9 +32,9 @@ from tqdm import tqdm
 from jeffutils.utils import stack_trace
 
 import modules.data_manager as dm
-from modules.parking_zone_class import ParkingZone, get_parking_zone_from_zoneID
+from modules.parking_zone_class import ParkingZone
 from modules.display import show_video
-from modules.car_class import Car
+from modules.spot_classes.car_class import Car
 from tests.test_helpers import (
     load_test_set, 
     get_enter_videos, 
@@ -75,7 +75,7 @@ def test_parking_zone_inference(zone_size:int, zoneID:str, test_set_label:str, m
     results:list[dict] = []
     
     # load the ParkingZone
-    parking_zone = get_parking_zone_from_zoneID(zoneID)
+    parking_zone = dm.get_parking_zone_from_zoneID(zoneID)
     
     # run n_tests for each enter/leave pair
     pbar = tqdm(total=len(pair_videos), position=1)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     input(f"Is model_label='{model_label}' correct? Press Enter to continue, CTRL+C to quit ...")
     
     zoneID = "JFSBP1_center_east-region_1-south_east"
-    parking_zone:ParkingZone = get_parking_zone_from_zoneID(zoneID)
+    parking_zone:ParkingZone = dm.get_parking_zone_from_zoneID(zoneID)
     
     zone_sizes = list(range(5, 13+1, 2))
     params = [

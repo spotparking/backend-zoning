@@ -1,7 +1,7 @@
 import numpy as np 
 import pandas as pd
 import cv2
-from car_class import Car
+from modules.spot_classes.car_class import Car
 from modules.parking_zone_class import ParkingZone
 from helpers import take_drive_pics, is_in_zone_vec
 

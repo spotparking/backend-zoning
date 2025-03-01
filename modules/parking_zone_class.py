@@ -6,9 +6,7 @@ import numpy as np
 import pandas as pd
 import cv2
 
-from modules.car_class import Car
-from modules.helpers import is_in_zone_vec, points_float_to_pix
-import modules.data_manager as dm
+from modules.spot_classes.car_class import Car
 
 class ParkingZone:
     def __init__(self, zone_id:str, cam_label:str, coordinates:list[list[float]], driving_region_coordinates:list[list[float]]=None):
@@ -58,6 +56,21 @@ class ParkingZone:
     ############################################################
     #                    FEATURE VECTOR CODE                   #
     ############################################################
+    
+    def points_float_to_pix(points:list[list[float]], height:int, width:int) -> list[list[int]]:
+        """ takes in a list of points like [[0.1, 0.2], [0.3, 0.4]] and the height and width
+        of the image, and returns a list of points like [[100, 200], [300, 400]] """
+        return [[int(point[0] * width), int(point[1] * height)] for point in points]
+    
+    def is_in_zone_vec(centers:np.ndarray, zone:np.ndarray) -> np.ndarray:
+        def is_in_zone(x:int, y:int, zone:np.ndarray) -> bool:
+            return cv2.pointPolygonTest(zone, (int(x), int(y)), measureDist=False) >= 0
+        
+        return np.array([
+            is_in_zone(x, y, zone)
+            for x, y in centers
+        ]).astype(bool)
+    
     
     
     def closest_k_points(leave, enter_points, k):
@@ -178,12 +191,11 @@ class ParkingZone:
         center_pt = record.loc[index, [cx_col, cy_col]]
         return tuple(map(int, center_pt))
     
-    
     def get_drive_pics(self, frames:list[np.ndarray], record:pd.DataFrame, frame_skip=1, track_id:int|str=None, track_id_col='track_id'):
         
         record = record.copy()
         if 'in_driving_region' not in record.columns:
-            record['in_driving_region'] = is_in_zone_vec(record[['cx', 'cy']].values.astype(int), self.driving_region_pix)
+            record['in_driving_region'] = ParkingZone.is_in_zone_vec(record[['cx', 'cy']].values.astype(int), self.driving_region_pix)
         
         # check the track_id_col to make sure it is in the record
         if track_id_col not in record.columns:
@@ -219,7 +231,7 @@ class ParkingZone:
     
     
     def compute_in_driving_region(self, record:pd.DataFrame, cx_col='cx_ma', cy_col='cy_ma') -> pd.DataFrame:
-        return ~is_in_zone_vec(
+        return ~ParkingZone.is_in_zone_vec(
             record[[cx_col, cy_col]].values.astype(int), 
             np.array(self.coordinates).astype(int)
         )
@@ -264,30 +276,3 @@ class ParkingZone:
                         best_match = enter_car
             
         return best_match
-
-
-
-    
-    
-############################################################
-#               PARKINGZONE CREATION FUNCTION              #
-############################################################
-    
-    
-    
-
-
-def get_parking_zone_from_zoneID(zoneID:str) -> ParkingZone:
-    # load the zone_settings based on the zoneID
-    cam_label, region_id, zone_name = dm.parse_zoneID(zoneID)
-    settings = dm.get_settings(cam_label)
-    zone_settings = dm.get_zone_settings(zoneID, settings=settings)
-    
-    # load the coordinates as pixels instead of floats
-    resolution = dm.get_camera_resolution(cam_label, settings=settings)
-    height = resolution['height']
-    width = resolution['width']
-    coordinates = points_float_to_pix(zone_settings['points'], height, width)
-    
-    # create and return the ParkingZone object
-    return ParkingZone(zoneID, cam_label, coordinates, [])

@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import dotenv
 import yaml
+from modules.parking_zone_class import ParkingZone
 
 dotenv.load_dotenv()
 
@@ -208,6 +209,21 @@ def load_frames_and_record(video_name:str) -> Tuple[list[np.ndarray], pd.DataFra
     # sadly the data doesn't specify which one...
     # record = record[record['any_in_parking_region']==True]
     return frames, record
+
+def get_parking_zone_from_zoneID(zoneID:str) -> ParkingZone:
+    # load the zone_settings based on the zoneID
+    cam_label, region_id, zone_name = parse_zoneID(zoneID)
+    settings = get_settings(cam_label)
+    zone_settings = get_zone_settings(zoneID, settings=settings)
+    
+    # load the coordinates as pixels instead of floats
+    resolution = get_camera_resolution(cam_label, settings=settings)
+    height = resolution['height']
+    width = resolution['width']
+    coordinates = ParkingZone.points_float_to_pix(zone_settings['points'], height, width)
+    
+    # create and return the ParkingZone object
+    return ParkingZone(zoneID, cam_label, coordinates, [])
         
     
     

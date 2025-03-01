@@ -1,4 +1,4 @@
-from modules.car_class import Car
+from modules.spot_classes.car_class import Car
 from modules.helpers import closest_k_points, compare_histograms
 
 class Zone:

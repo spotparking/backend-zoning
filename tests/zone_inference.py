@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import ast
 
-from modules.car_class import Car
+from modules.spot_classes.car_class import Car
 from modules.parking_zone_class import ParkingZone
 from modules.helpers import get_images_from_folder
 
