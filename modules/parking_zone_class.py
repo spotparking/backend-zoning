@@ -273,7 +273,10 @@ class ParkingZone:
         
         if len(self.cars) < k:
             k = len(self.cars)
+            
         leaving_car_center_pt = self.get_center_pt_from_feature(leaving_car.get_feature())
+        leaving_car_ave_hist = self.get_ave_hist_from_feature(leaving_car.get_feature())
+        
         closest_k = ParkingZone.closest_k_points(
             leaving_car_center_pt, 
             [
@@ -283,10 +286,9 @@ class ParkingZone:
             k=k
         )
         
-        leaving_car_ave_hist = self.get_ave_hist_from_feature(leaving_car.get_feature())
-        
         for enter_car in self.cars:
-            if enter_car.get_center_pt() in closest_k:
+            enter_car_center_pt = self.get_center_pt_from_feature(enter_car.get_feature())
+            if enter_car_center_pt in closest_k:
                 enter_car_ave_hist = self.get_ave_hist_from_feature(enter_car.get_feature())
                 score = ParkingZone.get_vector_similarity(leaving_car_ave_hist, enter_car_ave_hist)
                 if score > best_match_score:
