@@ -255,6 +255,12 @@ class ParkingZone:
         
         return np.concatenate([ave_hist, center_pt])
     
+    def get_ave_hist_from_feature(self, feature:np.ndarray) -> np.ndarray:
+        return feature[:-2]
+    
+    def get_center_pt_from_feature(self, feature:np.ndarray) -> Tuple[int, int]:
+        return tuple(feature[-2:])
+    
     
     ############################################################
     #                        PREDICTION                        #
@@ -267,11 +273,22 @@ class ParkingZone:
         
         if len(self.cars) < k:
             k = len(self.cars)
-        closest_k = ParkingZone.closest_k_points(leaving_car.get_center_pt(), [car.get_center_pt() for car in self.cars], k=k)
+        leaving_car_center_pt = self.get_center_pt_from_feature(leaving_car.get_feature())
+        closest_k = ParkingZone.closest_k_points(
+            leaving_car_center_pt, 
+            [
+                self.get_center_pt_from_feature(car.get_feature() )
+                for car in self.cars
+            ], 
+            k=k
+        )
+        
+        leaving_car_ave_hist = self.get_ave_hist_from_feature(leaving_car.get_feature())
         
         for enter_car in self.cars:
             if enter_car.get_center_pt() in closest_k:
-                score = ParkingZone.get_vector_similarity(leaving_car.get_ave_hist(), enter_car.get_ave_hist())
+                enter_car_ave_hist = self.get_ave_hist_from_feature(enter_car.get_feature())
+                score = ParkingZone.get_vector_similarity(leaving_car_ave_hist, enter_car_ave_hist)
                 if score > best_match_score:
                         best_match_score = score
                         best_match = enter_car

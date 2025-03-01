@@ -32,6 +32,11 @@ class Car:
             raise ValueError("feature must be a 1D array")
         self.feature:np.ndarray = feature
         
+    def get_feature(self):
+        if self.feature is None:
+            raise ValueError("feature has not been set for this car")
+        return self.feature  
+        
     def get_ave_hist(self):
         return self.feature[:-2]
         
