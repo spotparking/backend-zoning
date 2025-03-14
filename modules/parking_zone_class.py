@@ -260,7 +260,7 @@ class ParkingZone:
     
     def get_center_pt_from_feature(self, feature:np.ndarray) -> Tuple[int, int]:
         return tuple(feature[-2:])
-    
+
     
     ############################################################
     #                        PREDICTION                        #
