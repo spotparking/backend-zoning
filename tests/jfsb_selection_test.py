@@ -146,7 +146,7 @@ def test_parking_zone_inference(zone_size:int, zoneID:str, test_set_label:str, m
             
 if __name__ == "__main__":
     
-    model_label = "8hist_centerlastfirst_kandzerocenters"
+    model_label = "8histnormalized_centerlastfirst_kandzerocenters"
     
     input(f"Is model_label='{model_label}' correct? Press Enter to continue, CTRL+C to quit ...")
     
