@@ -108,6 +108,11 @@ class ParkingZone:
             hist_h = cv2.calcHist([hsv_image], [0], None, [BIN_SIZE], [0, 256]).reshape(-1)
             hist_s = cv2.calcHist([hsv_image], [1], None, [BIN_SIZE], [0, 256]).reshape(-1)
             hist_v = cv2.calcHist([hsv_image], [2], None, [BIN_SIZE], [0, 256]).reshape(-1)
+            
+            # normalize the histograms to be between 0 and 1 while preserving the relative ratios
+            hist_h = hist_h / np.sum(hist_h)
+            hist_s = hist_s / np.sum(hist_s)
+            hist_v = hist_v / np.sum(hist_v)
 
             # Concatenate histograms into one
             hist = np.concatenate((hist_h, hist_s, hist_v), axis=0)
